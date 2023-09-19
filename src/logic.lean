@@ -21,13 +21,16 @@ end
 theorem doubleneg_elim :
   ¬¬P → P  :=
 begin
-  sorry,
+  intro p,
+
 end
 
 theorem doubleneg_law :
   ¬¬P ↔ P  :=
 begin
-  sorry,
+  split,
+  intro p,
+
 end
 
 ------------------------------------------------
@@ -116,7 +119,9 @@ end
 theorem disj_as_negconj :
   P∨Q → ¬(¬P∧¬Q)  :=
 begin
-  sorry,
+  intro p,
+  intro q,
+  
 end
 
 theorem conj_as_negdisj :
