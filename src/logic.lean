@@ -243,13 +243,33 @@ end
 theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  split,
+  intro p,
+  left,
+  intro q,
+  apply p,
+  split,
 end
 
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  split,
+  intro p,
+  split,
+  intro q,
+  apply p,
+  left,
+  exact q,
+  intro j,
+  apply p,
+  right,
+  exact j,
+  intros h i,
+  cases h with a b,
+  cases i with u v,
+  exact a(u),
+  exact b(v),
 end
 
 ------------------------------------------------
@@ -325,7 +345,9 @@ end
 theorem curry_prop :
   ((P∧Q)→R) → (P→(Q→R))  :=
 begin
-  ,
+  intros p q r,
+
+  
 
 end
 
@@ -492,29 +514,59 @@ end
 theorem forall_as_neg_exists_converse :
   ¬(∃x, ¬P x) → (∀x, P x)  :=
 begin
-  intros p a,
-  exfalso,
-  apply p,
-  
+ intro p,
+ intro a,
+ by_contradiction,
+ apply p,
+ existsi a,
+ exact h,
 end
 
 theorem exists_as_neg_forall_converse :
   ¬(∀x, ¬P x) → (∃x, P x)  :=
 begin
   intro p,
-
+  by_contradiction,
+  apply p,
+  intro a,
+  intro q,
+  apply h,
+  existsi a,
+  exact q,
 end
 
 theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intros p q,
+  cases q with a ha,
+  have k := p(a),
+  exact ha(k),
+  intro p,
+  intro a,
+  by_contradiction,
+  apply p,
+  existsi a,
+  exact h,
 end
 
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intros p q,
+  cases p with a ha,
+  have k := q(a),
+  exact k(ha),
+  intro p,
+  by_contradiction,
+  apply p,
+  intro a,
+  intro q,
+  apply h,
+  existsi a,
+  exact q,
 end
 
 
@@ -535,8 +587,6 @@ begin
   existsi b,
   cases hb with u v,
   exact v,
-
-
 end
 
 theorem exists_disj_as_disj_exists :
