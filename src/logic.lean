@@ -155,7 +155,12 @@ end
 theorem peirce_law_weak :
   ((P → Q) → P) → ¬¬P  :=
 begin
- intro p,
+ intros p,
+ by_cases h : P,
+ intro q,
+ exact q(h),
+ intro a,
+ 
 
  
   
@@ -469,29 +474,35 @@ end
 theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
-  intro p,
-  by_contradiction,
+  intros p q,
   cases p with a ha,
-  have k := h(a),
+  have k := q(a),
   exact k(ha),
 end
 
 theorem forall_as_neg_exists :
   (∀x, P x) → ¬(∃x, ¬P x)  :=
 begin
-  ,
+  intros p q,
+  cases q with a ha,
+  have k := p(a),
+  exact ha(k),
 end
 
 theorem forall_as_neg_exists_converse :
   ¬(∃x, ¬P x) → (∀x, P x)  :=
 begin
-  sorry,
+  intros p a,
+  exfalso,
+  apply p,
+  
 end
 
 theorem exists_as_neg_forall_converse :
   ¬(∀x, ¬P x) → (∃x, P x)  :=
 begin
-  sorry,
+  intro p,
+
 end
 
 theorem forall_as_neg_exists_law :
