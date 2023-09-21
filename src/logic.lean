@@ -155,15 +155,7 @@ end
 theorem peirce_law_weak :
   ((P → Q) → P) → ¬¬P  :=
 begin
- intros p,
- by_cases h : P,
- intro q,
- exact q(h),
- intro a,
- 
-
- 
-  
+ by_contradiction,
 end
 
 
@@ -225,30 +217,57 @@ end
 theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
-  intro p,
-  left,
-  intro q,
-  apply p,
-  split,
-  exfalso,
-
+   intro p,
+   by_contradiction,
+   apply p,
+   split,
+   by_contradiction hj,
+   apply h,
+   right,
+   exact hj,
+   by_contradiction hq,
+   apply h,
+   left,
+   exact hq,
 end
 
 theorem demorgan_conj_converse :
   (¬Q ∨ ¬P) → ¬(P∧Q)  :=
 begin
-  intros p q,
+  intros p,
+  cases p with a ha,
+  intro q,
+  cases q with j hj,
+  exact a(hj),
+  intro k,
+  cases k with u v,
+  exact ha(u),
 end
 
 theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
   split,
-  intro p,
-  left,
-  intro q,
-  apply p,
-  split,
+   intro p,
+   by_contradiction,
+   apply p,
+   split,
+   by_contradiction hj,
+   apply h,
+   right,
+   exact hj,
+   by_contradiction hq,
+   apply h,
+   left,
+   exact hq,
+   intros p,
+   cases p with a ha,
+   intro q,
+   cases q with j hj,
+   exact a(hj),
+   intro k,
+   cases k with u v,
+   exact ha(u),
 end
 
 theorem demorgan_disj_law :
@@ -346,9 +365,14 @@ theorem curry_prop :
   ((P∧Q)→R) → (P→(Q→R))  :=
 begin
   intros p q r,
-
-  
-
+  by_cases j:P∧Q,
+  have k:= p(j),
+  exact k,
+  exfalso,
+  apply j,
+  split,
+  exact q,
+  exact r, 
 end
 
 theorem uncurry_prop :
@@ -359,7 +383,6 @@ begin
   have k := p(a),
   have j := k(b),
   exact j,
-  
 end
 
 
