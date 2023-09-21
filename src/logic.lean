@@ -155,7 +155,16 @@ end
 theorem peirce_law_weak :
   ((P → Q) → P) → ¬¬P  :=
 begin
- by_contradiction,
+  intros p,
+  by_cases j:(P → Q),
+  intro q,
+  have k:= p(j),
+  exact q(k),
+  intro h,
+  apply j,
+  intro i,
+  exfalso,
+  exact h(i),
 end
 
 
@@ -317,6 +326,15 @@ begin
   intro p,
   cases p with a b,
   cases a with j k,
+  split,
+  exact j,
+  left,
+  exact k,
+  cases b with u v,
+  split,
+  exact u,
+  right,
+  exact v,
   
 end
 
